@@ -2,5 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.startScrapper)
+    path('test-async/', views.startAsyncScrapper),
+    path('test-sync/', views.startSyncScrapper)
+
 ]

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 ]
+SITE_ID=1
 CORS_ALLOW_ALL_ORIGINS = True
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if DEBUG:
@@ -90,7 +91,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'OneShopJobs.wsgi.application'
 ASGI_APPLICATION = "OneShopJobs.asgi.application"
-
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

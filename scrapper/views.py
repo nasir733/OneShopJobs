@@ -37,14 +37,17 @@ def getJobCategory():
 
 async def startAsyncScrapper(request):
     print("hello from stackoverflow jobs section")
-    actions = []
-    start_time = time.time()
-    jobsName = await getJobCategory()
+    try:
+        actions = []
+        start_time = time.time()
+        jobsName = await getJobCategory()
     # print(jobsName)
-    for job in jobsName:
-        url = f"https://stackoverflow.com/jobs?q={job}"
-        actions.append(asyncio.ensure_future(extract_jobs(9, url, job)))
-    await asyncio.gather(*actions)
-    total_time = time.time() - start_time
+        for job in jobsName:
+            url = f"https://stackoverflow.com/jobs?q={job}"
+            actions.append(asyncio.ensure_future(extract_jobs(4, url, job)))
+        await asyncio.gather(*actions)
+        total_time = time.time() - start_time
+    except Exception as e:
+        print(e)
 
     return HttpResponse(f"hi the  scrapper is done in {total_time}sec ")

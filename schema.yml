@@ -1,0 +1,604 @@
+openapi: 3.0.3
+info:
+  title: All in one Jobs Api
+  version: 1.0.0
+  description: this api will scrape data from your favourite jobs website and serve
+    it to you as an api so that you dont have to visit each website on your own while
+    job hunting
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /scrapper/jobnames/:
+    get:
+      operationId: scrapper_jobnames_list
+      description: ''
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobsCategory'
+          description: ''
+    post:
+      operationId: scrapper_jobnames_create
+      description: ''
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsCategory'
+          description: ''
+  /scrapper/jobnames/{name}/:
+    get:
+      operationId: scrapper_jobnames_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsCategory'
+          description: ''
+    put:
+      operationId: scrapper_jobnames_update
+      description: ''
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JobsCategory'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsCategory'
+          description: ''
+    patch:
+      operationId: scrapper_jobnames_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJobsCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJobsCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJobsCategory'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsCategory'
+          description: ''
+    delete:
+      operationId: scrapper_jobnames_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /scrapper/jobs/:
+    get:
+      operationId: scrapper_jobs_list
+      description: ''
+      parameters:
+       
+      - name: ordering
+        required: false
+        
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+          enum:
+          - rating
+          - location
+          - jobCategory
+          - created_at
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedJobsList'
+          description: ''
+    post:
+      operationId: scrapper_jobs_create
+      description: ''
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jobs'
+          description: ''
+  /scrapper/jobs/{jobCategory}/:
+    get:
+      operationId: scrapper_jobs_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: jobCategory
+        schema:
+          type: integer
+        required: true
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jobs'
+          description: ''
+    put:
+      operationId: scrapper_jobs_update
+      description: ''
+      parameters:
+      - in: path
+        name: jobCategory
+        schema:
+          type: integer
+        required: true
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Jobs'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jobs'
+          description: ''
+    patch:
+      operationId: scrapper_jobs_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: jobCategory
+        schema:
+          type: integer
+        required: true
+      tags:
+      - scrapper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJobs'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJobs'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJobs'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jobs'
+          description: ''
+    delete:
+      operationId: scrapper_jobs_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: jobCategory
+        schema:
+          type: integer
+        required: true
+      tags:
+      - scrapper
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Jobs:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+          maxLength: 255
+        rating:
+          type: string
+          nullable: true
+          maxLength: 255
+        location:
+          type: string
+          nullable: true
+          maxLength: 255
+        company_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        jobCategory:
+          type: integer
+          nullable: true
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          nullable: true
+          maxLength: 11250
+        job_by:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - created_at
+      - id
+    JobsCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 244
+      required:
+      - name
+    PaginatedJobsList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Jobs'
+    PatchedJobs:
+      type: object
+      properties:
+        title:
+          type: string
+          nullable: true
+          maxLength: 255
+        rating:
+          type: string
+          nullable: true
+          maxLength: 255
+        location:
+          type: string
+          nullable: true
+          maxLength: 255
+        company_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        jobCategory:
+          type: integer
+          nullable: true
+        id:
+          type: integer
+          readOnly: true
+        link:
+          type: string
+          nullable: true
+          maxLength: 11250
+        job_by:
+          type: string
+          nullable: true
+          maxLength: 255
+    PatchedJobsCategory:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 244
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: Session

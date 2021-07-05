@@ -7,6 +7,8 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 
 class JobCategory(Model):
     name = fields.CharField(max_length=244, unique=True)
+    id = fields.BigIntField(pk=True)
+
 
     def __str__(self):
         return self.name
@@ -22,7 +24,7 @@ JobCategoryIn_pydantic = pydantic_model_creator(
 
 class Jobs(Model):
     # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
+    id = fields.BigIntField(pk=True)
     title = fields.CharField(max_length=255, null=True)
     company_name = fields.CharField(max_length=255, null=True)
     location = fields.CharField(max_length=255, null=True)

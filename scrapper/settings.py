@@ -55,7 +55,7 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
+    'django.contrib.sessions.middleware.SessionMiddleware', 
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -86,9 +86,14 @@ WSGI_APPLICATION = "scrapper.wsgi.application"
 ASGI_APPLICATION = "scrapper.asgi.application"
 
 DATABASES = {
-    "default": {
+    'default': {},
+    "django_db": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    },
+    "fastapi_db": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "fastapi_db.sqlite3"),
     }
 }
 
@@ -170,6 +175,7 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+DATABASE_ROUTERS = ['database-routers.db_routers.FastApiDbRouter','database-routers.db_routers.DjangoDbRouter']
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

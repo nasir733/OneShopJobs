@@ -39,7 +39,7 @@ async def startAsyncScrapper():
     await asyncio.gather(*actions)
     total_time = time.time() - start_time
 
-    return 'jello'
+    return 'hi my friend '
 
 
 register_tortoise(

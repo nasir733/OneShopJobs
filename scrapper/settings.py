@@ -12,13 +12,16 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import dotenv_values
+
 
 import django_heroku
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+config = dotenv_values(".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -40,9 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "indeedscrapper",
-    # 'djagno.contrib.humanize',
-    'channels',
+    'jobs_api',
+    # 'channels',
     "rest_framework",
     "django_celery_beat",
     "drf_spectacular",
@@ -55,7 +57,7 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    'django.contrib.sessions.middleware.SessionMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -83,32 +85,30 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "scrapper.wsgi.application"
-ASGI_APPLICATION = "scrapper.asgi.application"
+# ASGI_APPLICATION = "scrapper.asgi.application"
+
+# DATABASES = {
+#     'default': {},
+#     "django_db": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     },
+#     "fastapi_db": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "fastapi_db.sqlite3"),
+#     }
+# }
 
 DATABASES = {
-    'default': {},
-    "django_db": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    },
-    "fastapi_db": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "fastapi_db.sqlite3"),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": f'{ os.environ.get("NAME") if not DEBUG else config["NAME"]}',
+        "USER": f'{ os.environ.get("USER") if not DEBUG else  config["USER"]}',
+        "PASSWORD": f'{os.environ.get("PASSWORD") if not DEBUG else config["PASSWORD"]}',
+        "HOST": f'{os.environ.get("HOST")if not DEBUG else config["HOST"]}',
+        "PORT": "5432",
     }
 }
-
-
-if not DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": f'{os.environ.get("NAME")}',
-            "USER": f'{os.environ.get("USER")}',
-            "PASSWORD": f'{os.environ.get("PASSWORD")}',
-            "HOST": f'{os.environ.get("HOST")}',
-            "PORT": "5432",
-        }
-    }
 
 
 # Password validation
@@ -167,6 +167,11 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+
 }
 SPECTACULAR_SETTINGS = {
     "TITLE": "All in one Jobs Api",
@@ -175,7 +180,7 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
-DATABASE_ROUTERS = ['database-routers.db_routers.FastApiDbRouter','database-routers.db_routers.DjangoDbRouter']
+# DATABASE_ROUTERS = ['database-routers.db_routers.FastApiDbRouter','database-routers.db_routers.DjangoDbRouter']
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)

@@ -22,15 +22,21 @@ async def extract_job(html, name, url):
     # recursive all for only 2 spans to avoid going deeper spans
     company = companies.get_text(strip=True).strip(" \r").strip("\n")
     location = locations.get_text(strip=True).strip(" \r").strip("\n")
-    print('createing the jobs in database')
-    await Jobs.create(
-        title=title,
-        company_name=company,
-        location=location,
-        jobCategory=name,
-        link=url + link,
-        job_by="stackoverflow",
-    )
+    """ try and except are only for error handling because in async
+     the tortoise orm get_or_create method can return 2 or more object and 
+     causing the program to fail"""
+    try:
+        await Jobs.get_or_create(
+            title=title,
+            company_name=company,
+            location=location,
+            jobCategory=name,
+            link=url + link,
+            job_by="stackoverflow",
+        )
+    except Exception as e:
+        print(e)
+        pass
 
 
 async def extract_jobs(last_page, url, name):

@@ -4,7 +4,7 @@ from django.utils.html import mark_safe
 
 # Register your models here.
 # admin.site.register(models.Jobs)
-admin.site.register(models.JobCategory)
+admin.site.register(models.Jobcategory)
 
 
 @admin.register(models.Jobs)
@@ -14,13 +14,13 @@ class JobAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "company_name",
-        "jobCategory",
+        "jobcategory",
         "location",
         "job_by",
         "link",
         # "job_link",
     )
-    list_filter = ("jobCategory", "job_by")
+    list_filter = ("jobcategory", "job_by")
 
     def job_link(self, obj):
         return mark_safe(

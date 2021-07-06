@@ -7,10 +7,21 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 from stackoverflowscrapper import extract_jobs
 from fastapi.responses import JSONResponse
 import time
+import os
 import asyncio
 from models import JobCategory, Jobs_Pydantic, Jobs
 import uvicorn
+from dotenv import dotenv_values
+from fastapi.middleware.cors import CORSMiddleware
+config = dotenv_values(".env")
 app = FastAPI()
+origins = [
+    "http://localhost.tiangolo.com",
+    "https://localhost.tiangolo.com",
+    "http://localhost",
+    "http://localhost:9000",
+    'http://'
+]
 
 
 @app.get("/get-jobs")
@@ -23,7 +34,7 @@ async def createCategory():
     return await JobCategory.create(name="Python")
 
 
-@app.get("/")
+@app.get("/scrape-stackoverflow")
 async def startAsyncScrapper():
     print("hello from stackoverflow jobs section")
 
@@ -35,16 +46,17 @@ async def startAsyncScrapper():
     # print(jobsName)
     for job in jobsName:
         url = f"https://stackoverflow.com/jobs?q={job}"
-        actions.append(asyncio.ensure_future(extract_jobs(4, url, job)))
+        actions.append(asyncio.ensure_future(extract_jobs(9, url, job)))
     await asyncio.gather(*actions)
     total_time = time.time() - start_time
 
-    return 'hi my friend '
+    return JSONResponse(f'the async stackoverflow scrapper is done in {total_time} seconds   ')
 
 
 register_tortoise(
     app,
-    db_url='sqlite://db.sqlite3',
+    # db_url='postgres://postgres:24242424@database-1.cgflmpcc3zf6.us-east-2.rds.amazonaws.com:5432/webscrapper',
+    db_url=f'postgres://{config["USER"] or os.environ.get("USER")}:{config["PASSWORD"] or os.environ.get("PASSWORD")}@{config["HOST"] or os.environ.get("HOST")}:5432/{config["NAME"] or os.environ.get("NAME")}',
     modules={'models': ['main']},
     generate_schemas=True,
     add_exception_handlers=True

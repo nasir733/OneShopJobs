@@ -5,3 +5,4 @@ staticfiles
 db.sqlite3
 getting-started/*
 static
+node_modules

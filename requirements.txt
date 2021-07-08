@@ -16,8 +16,7 @@ billiard==3.6.4.0
 binaryornot==0.4.4
 black==21.5b2
 bs4==0.0.1
-celery==4.4.7
-celery-pool-asyncio==0.2.0
+celery
 certifi==2020.12.5
 cffi==1.14.5
 channels==3.0.3
@@ -35,7 +34,6 @@ defusedxml==0.7.1
 dj-database-url==0.5.0
 Django==3.2.3
 django-allauth==0.44.0
-django-celery==3.3.1
 django-celery-beat==2.2.0
 django-cors-headers==3.7.0
 django-crispy-forms==1.11.2

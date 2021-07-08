@@ -112,28 +112,26 @@ TEMPLATES = [
 WSGI_APPLICATION = "scrapper.wsgi.application"
 # ASGI_APPLICATION = "scrapper.asgi.application"
 
-# DATABASES = {
-#     'default': {},
-#     "django_db": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     },
-#     "fastapi_db": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "fastapi_db.sqlite3"),
-#     }
-# }
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": f'{ os.environ.get("NAME") if not DEBUG else config["NAME"]}',
-        "USER": f'{ os.environ.get("USER") if not DEBUG else  config["USER"]}',
-        "PASSWORD": f'{os.environ.get("PASSWORD") if not DEBUG else config["PASSWORD"]}',
-        "HOST": f'{os.environ.get("HOST")if not DEBUG else config["HOST"]}',
-        "PORT": "5432",
-    }
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    },
+   
 }
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": f'{ os.environ.get("NAME") if not DEBUG else config["NAME"]}',
+#         "USER": f'{ os.environ.get("USER") if not DEBUG else  config["USER"]}',
+#         "PASSWORD": f'{os.environ.get("PASSWORD") if not DEBUG else config["PASSWORD"]}',
+#         "HOST": f'{os.environ.get("HOST")if not DEBUG else config["HOST"]}',
+#         "PORT": "5432",
+#     }
+# }
 
 
 # Password validation

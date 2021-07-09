@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 {% load tailwind_tags %}
+{%load static %}
 {% tailwind_css %}
 {% block content %}
-<div class="bg-gray-100  ">
-    this is the landing page
+<div class="container mx-auto h-screen flex justify-between items-center">
+    <div class="landing__left">
+        <div class="text-7xl text-extrabold ">Let's find you a job!</div>
+        <div class="text-4xl text-bold mt-7 " style="color: #474747;">Find jobs from your favorite websites in one place</div>
+        <a href="/accounts/login"><button  class="pl-7 pr-7 pt-2 pb-2 rounded-full text-bold text-white mt-7 text-xl" style="background-color: #0078E7">Get Started</button></a>
+    </div>
+    <div class="landing__right">
+        <img src="{%static 'assets/landingimg.png'%}" />
+    </div>
 </div>
-<button class="">Hi hello</button>
 {% endblock content %}

@@ -4,16 +4,17 @@
   <div class=" min-h-screen py-32 px-10">
   <div class="bg-white p-10 rounded-lg shadow md:w-3/4 lg:w-1/2 mx-auto">
 
-    <form action="">
+    <form action="{%url 'login'%}" method="POST">
+        {%csrf_token%}
 
       <div class="mb-5">
-        <label for="name" class="block mb-2 font-bold text-gray-600">Email</label>
-        <input type="text" id="name" name="name" placeholder="Your Name" class="border border-gray-300 shadow p-3 w-full rounded">
+        <label for="username" class="block mb-2 font-bold text-gray-600">User Name</label>
+        <input  name="username"  class="border border-gray-300 shadow p-3 w-full rounded">
       </div>
 
       <div class="mb-10">
-        <label for="twitter" class="block mb-2 font-bold text-gray-600">Password</label>
-        <input type="password" id="twitter" name="twitter" placeholder="@chrisoncode" class="border border-gray-300 shadow p-3 w-full rounded">
+        <label for="password" class="block mb-2 font-bold text-gray-600">Password</label>
+        <input type="password"  name="password"  class="border border-gray-300 shadow p-3 w-full rounded">
 
       </div>
 

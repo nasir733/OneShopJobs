@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'jobs_api',
     'website',
+    'accounts',
     'tailwind',
     'theme',
     # 'channels',
@@ -62,6 +63,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 SITE_ID = 1
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
@@ -120,7 +123,11 @@ DATABASES = {
    
 }
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+# for windows
+# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+# for linux 
+NPM_BIN_PATH = 'npm'
 
 # DATABASES = {
 #     "default": {

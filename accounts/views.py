@@ -42,6 +42,7 @@ def register(request):
                     messages.success(request, 'Account created succesfully')
                     return redirect('login')
 
+        
         else:
             messages.error(request,'password do not match')
             return redirect('register')

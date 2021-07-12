@@ -15,10 +15,20 @@
       <div class="mb-10">
         <label for="password" class="block mb-2 font-bold text-gray-600">Password</label>
         <input type="password"  name="password"  class="border border-gray-300 shadow p-3 w-full rounded">
+ 
+ {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+     <p class="text-sm text-red-400 mt-2">{{message}}</p>
+    {% endfor %}
+</ul>
+{% endif %}
 
       </div>
 
       <button class="block w-full bg-blue-500 text-white font-bold p-4 rounded-lg">Submit</button>
+
+
 
     </form>
 

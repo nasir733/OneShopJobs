@@ -37,9 +37,15 @@
   <div class="mb-10">
         <label for="confirm_password" class="block mb-2 font-bold text-gray-600">Confirm Password</label>
         <input type="password"  name="confirm_password"  class="border border-gray-300 shadow p-3 w-full rounded">
+ {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+     <p class="text-sm text-red-400 mt-2">{{message}}</p>
+    {% endfor %}
+</ul>
+{% endif %}
 
       </div>
-
 
 
                   

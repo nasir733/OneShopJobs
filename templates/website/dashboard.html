@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="search w-full bg-white mb-7">
+    <div class="flex justify-between">
+        <input type="text" id="search" class="search w-full" placeholder="Search..." />
+        <button class="search p-3 bg-gray-500 text-white" id="searchBtn">Search</button>    
+    </div>
+
+</div>
+
+  
+<div id="result" class="w-full justify-center" style="display: grid;grid-template-columns: repeat(auto-fit, minmax(20rem, .6fr));  gap: 10px;">
+   
+</div>
+{% csrf_token %}
+
+
+
+<script>
+    const resultBox = document.getElementById("result");
+    const searchBox = document.getElementById("search");
+    const searchBtn = document.getElementById("searchBtn");
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    console.log("hi");
+    window.onload = () => {
+        fetchJobs();
+    }
+// make an evene listener for the search button
+searchBtn.addEventListener('click',()=>{
+    fetchJobs(searchBox.value)
+})
+   //http://143.244.157.225:9000/api/v1/jobs/?search=python 
+    const writeData=(data)=>{
+        resultBox.innerHTML = "";
+        data.results.forEach(result => {
+            //resultBox.innerHTML += `<div>${result.company_name} ${result.created_at}</div>`
+            resultBox.innerHTML += `<div class=" w-full flex flex-col bg-white px-8 py-6 max-w-sm mx-auto rounded-lg shadow-lg">
+        <div class="flex justify-center items-center">
+            <a class="px-2 py-1 bg-gray-600 text-sm text-green-100 rounded" href="${result.title}" target="blank">${result.jobcategory.name}</a>
+        </div>
+        <div class="mt-4">
+            <a class="text-lg text-gray-700 font-medium" href="${result.link}">${result.title}</a>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+            <div class="flex items-center">
+                
+                <a class="text-gray-700 text-sm " href="${result.link}" target="blank">${result.company_name}</a>
+            </div>
+            <span class="font-light text-sm text-gray-600">${result.created_at}</span>
+        </div>
+    </div>`
+
+        })
+    }
+    
+    async function fetchJobs(searchQuery) {
+        try {
+            const url = `/api/v1/jobs${searchQuery ? `?search=${searchQuery}` : ''}`;
+            console.log(url)
+            const res = await fetch(url,{headers: {'X-CSRFToken': csrftoken}})
+            const data = await res.json();
+            console.log(data);
+            
+           
+            writeData(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+</script>
+
+{% endblock content %}

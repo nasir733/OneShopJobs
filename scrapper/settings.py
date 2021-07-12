@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_filters',
     'website',
+    'accounts',
     'tailwind',
     'theme',
     # 'channels',
@@ -64,6 +65,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 SITE_ID = 1
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         # For each OAuth based provider, either add a ``SocialApp``
@@ -118,13 +121,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "scrapper.wsgi.application"
 # ASGI_APPLICATION = "scrapper.asgi.application"
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     },
 
-# }
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 

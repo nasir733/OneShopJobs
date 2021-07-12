@@ -12,21 +12,21 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 
 class Jobscategory(viewsets.ModelViewSet):
     queryset = Jobcategory.objects.all()
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    authentication_classes = []
 
     pagination_class = None
 
     serializer_class = JobsCategorySerializer
     lookup_field = 'name'
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
 
 
 class JobsViewSet(viewsets.ModelViewSet):
     queryset = Jobs.objects.all()
     serializer_class = JobsSerializer
     lookup_field = 'jobCategory'
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
+    authentication_classes = []
+    permission_classes = []
     search_fields = (
         'rating',
         'location',

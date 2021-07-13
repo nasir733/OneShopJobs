@@ -15,7 +15,6 @@ async def get_last_page(url):
 
 
 async def extract_job(html, name, url):
-    ic()
     soup = html.find("div", {"class": "fl1"})
     title = soup.find("h2").find("a")["title"]
     link = soup.find("h2").find("a")["href"]
@@ -23,17 +22,19 @@ async def extract_job(html, name, url):
     # recursive all for only 2 spans to avoid going deeper spans
     company = companies.get_text(strip=True).strip(" \r").strip("\n")
     location = locations.get_text(strip=True).strip(" \r").strip("\n")
+
+    link_url=f"https://stackoverflow.com/{link}"
     """ try and except are only for error handling because in async
      the tortoise orm get_or_create method can return 2 or more object and 
      causing the program to fail"""
+
     try:
-        ic()
         await Jobs.get_or_create(
             title=title,
             company_name=company,
             location=location,
             jobCategory=name,
-            link=url + link,
+            link=link_url,
             job_by="stackoverflow",
         )
     except Exception as e:
@@ -42,7 +43,6 @@ async def extract_job(html, name, url):
 
 
 async def extract_jobs(last_page, url, name):
-    jobs = []
     print(f"geting data for {name}")
     async with aiohttp.ClientSession() as session:
         for page in range(1, last_page):
@@ -52,5 +52,3 @@ async def extract_jobs(last_page, url, name):
                 results = soup.find_all("div", {"class": "-job"})
                 for resul in results:
                     job = await extract_job(resul, name, url)
-                    jobs.append(job)
-        return jobs

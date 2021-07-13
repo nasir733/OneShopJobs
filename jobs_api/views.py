@@ -22,7 +22,7 @@ class Jobscategory(viewsets.ModelViewSet):
 
 
 class JobsViewSet(viewsets.ModelViewSet):
-    queryset = Jobs.objects.all()
+    queryset =Jobs.objects.order_by('-created_at')
     serializer_class = JobsSerializer
     lookup_field = 'jobCategory'
     authentication_classes = [SessionAuthentication, BasicAuthentication]

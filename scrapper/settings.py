@@ -123,7 +123,8 @@ WSGI_APPLICATION = "scrapper.wsgi.application"
 
 
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+NPM_BIN_PATH = r"npm"
 
 DATABASES = {
     "default": {

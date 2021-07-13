@@ -15,6 +15,7 @@ async def get_last_page(url):
 
 
 async def extract_job(html, name, url):
+    ic()
     soup = html.find("div", {"class": "fl1"})
     title = soup.find("h2").find("a")["title"]
     link = soup.find("h2").find("a")["href"]
@@ -26,6 +27,7 @@ async def extract_job(html, name, url):
      the tortoise orm get_or_create method can return 2 or more object and 
      causing the program to fail"""
     try:
+        ic()
         await Jobs.get_or_create(
             title=title,
             company_name=company,

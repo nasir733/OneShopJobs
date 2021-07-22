@@ -8,10 +8,11 @@ import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 from dotenv import dotenv_values
+from django.conf import settings
 config = dotenv_values(".env")
 
 
 @shared_task()
 def stackoverflow_scrapper():
-    res = requests.get(f'http://{config["FASTAPIURL"]}/scrape-stackoverflow',verify=False)
+    res = requests.get(f'http://{os.environ.get("FASTAPIURL") if not settings.DEBUG else config["FASTAPIURL"]}/scrape-stackoverflow',verify=False)
     return res.text

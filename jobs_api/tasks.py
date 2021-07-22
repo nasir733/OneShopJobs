@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 from dotenv import dotenv_values
 from django.conf import settings
+import os 
 config = dotenv_values(".env")
 
 

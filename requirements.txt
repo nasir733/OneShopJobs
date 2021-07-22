@@ -100,7 +100,7 @@ sqlparse
 starlette
 text-unidecode
 toml
-torna
+tornado
 tortoise-orm
 Twisted
 txaio

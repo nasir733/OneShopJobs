@@ -98,7 +98,7 @@ six
 soupsieve
 sqlparse
 starlette
-text-unideco
+text-unidecode
 toml
 torna
 tortoise-orm

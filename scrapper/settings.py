@@ -205,7 +205,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 # DATABASE_ROUTERS = ['database-routers.db_routers.FastApiDbRouter','database-routers.db_routers.DjangoDbRouter']
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join("staticfiles")
 STATIC_URL = "/static/"
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 django_heroku.settings(locals())

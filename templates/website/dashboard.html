@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+{% block style %}
+  .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+{% endblock style %}
+
 
 {% block content %}
 
@@ -17,6 +33,18 @@
 </div>
 {% csrf_token %}
 
+<!-- The Modal -->
+<div id="myModal" class=" z-10 fixed w-full h-full overflow-auto top-0 left-0" style="background-color: rgba(0,0,0,0.4); ">
+
+  <!-- Modal content -->
+  <div class=" bg-white" style="margin: 15% auto;  padding: 20px;
+  border: 1px solid #888;  width: 80%;">
+    <span class="close" >&times;</span>
+    <div><iframe src="https://stackoverflow.com/jobs/527952/senior-software-engineer-nodejs-haus-inc?so=i&pg=8&offset=18&q=reactjs" frameborder="0"></iframe></div>
+  </div>
+
+</div>
+
 
 
 <script>
@@ -27,17 +55,17 @@
     let pageCount =1;
 
     console.log("hi");
-    window.onload = () => {
+    {% comment %} window.onload = () => {
         fetchJobs();
         pageCount=1;
-    }
+    } {% endcomment %}
 // make an evene listener for the search button
 searchBtn.addEventListener('click',()=>{
     pageCount=1
     fetchJobs(searchBox.value,pageCount,clearPreviousData=true)
 })
 
-window.addEventListener('scroll',()=>{
+{% comment %} window.addEventListener('scroll',()=>{
 	const {scrollHeight,scrollTop,clientHeight} = document.documentElement;
 	if(scrollTop + clientHeight > scrollHeight - 5){
 		console.log('reached the end of the screen ')
@@ -46,7 +74,7 @@ window.addEventListener('scroll',()=>{
         pageCount=pageCount+1;
 
 	}
-});
+}); {% endcomment %}
 
    //http://143.244.157.225:9000/api/v1/jobs/?search=python 
     const writeData=(data,clearPreviousData)=>{

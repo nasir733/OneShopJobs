@@ -122,9 +122,8 @@ WSGI_APPLICATION = "scrapper.wsgi.application"
 # ASGI_APPLICATION = "scrapper.asgi.application"
 
 
-
 # NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-NPM_BIN_PATH = r"npm"
+NPM_BIN_PATH = 'npm'
 
 DATABASES = {
     "default": {
@@ -198,7 +197,7 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 20,
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],

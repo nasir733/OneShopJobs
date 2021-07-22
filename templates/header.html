@@ -1,12 +1,13 @@
 <nav class="container mx-auto pt-3 pb-3">
-    <div class="flex flex-wrap justify-between ">
+    <div class="flex flex-wrap justify-center md:justify-between ">
         <h1 class=" text-xl font-extrabold font-serif text-blue-700	 ">OneShopJobs</h1>
         <div class="w-12/11 px-px">
             <ul class="flex flex-wrap gap-px  px-10 ">
-                <li class="ml-6  sm:ml-3"> <a href="">Home</a></li>
+                <li class="ml-6  sm:ml-3"> <a href="#">Home</a></li>
                 <li class="ml-6 sm:ml-3"> <a href={% if user.is_authenticated %}/accounts/logout
                         {% else %}"/accounts/login"{% endif %}>{% if user.is_authenticated %}logout {% else %}
-                        login{% endif %} </a> </li> <li class="ml-6 sm:ml-3"> <a href="">About</a></li>
+                        login{% endif %} </a> </li>
+                        <li class="ml-6 sm:ml-3"> <a href="#">About</a></li>
             </ul>
         </div>
 

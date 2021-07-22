@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.humanize.templatetags import humanize
 
 # Create your models here.
 class Jobcategory(models.Model):
@@ -21,6 +22,9 @@ class Jobs(models.Model):
     link = models.CharField(max_length=11250, blank=True, null=True)
     job_by = models.CharField(max_length=255, blank=True, null=True)
     jobcategory = models.ForeignKey(Jobcategory, models.DO_NOTHING, db_column='jobCategory_id', blank=True, null=True)  # Field name made lowercase.
+    @property
+    def get_date(self):
+        return humanize.naturaltime(self.created_at)
 
     class Meta:
         managed = False

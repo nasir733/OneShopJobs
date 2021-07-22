@@ -4,6 +4,8 @@ from django.shortcuts import render
 
 def LandingPage(request):
     if request.method == 'GET':
+        if request.user.is_authenticated:
+            return render(request,'website/dashboard.html')
         return render(request, 'website/landing.html')
     
 def dashboardPage(request):

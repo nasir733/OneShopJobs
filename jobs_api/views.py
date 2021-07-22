@@ -30,9 +30,9 @@ class JobsViewSet(viewsets.ModelViewSet):
     search_fields = (
         'rating',
         'location',
-        'title',
         'company_name',
         'created_at',
-        'job_by'
+        'job_by',
+        'jobcategory__name',
     )
-    ordering_fields = ["rating", "location", 'created_at', 'jobCategory']
+    ordering_fields = ["rating", "location", 'created_at', 'jobcategory']

@@ -4,8 +4,8 @@
 {% block content %}
 
 <div class="search w-full bg-white mb-7">
-    <div class="flex justify-between">
-        <input type="text" id="search" class="search w-full" placeholder="Search..." />
+    <div class="flex justify-between border-gray-100">
+        <input type="text" id="search" class="search border border-gray-300 shadow p-3 w-full rounded w-full" placeholder="Search..." />
         <button class="search p-3 bg-gray-500 text-white" id="searchBtn">Search</button>    
     </div>
 
@@ -24,19 +24,35 @@
     const searchBox = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let pageCount =1;
 
     console.log("hi");
     window.onload = () => {
         fetchJobs();
+        pageCount=1;
     }
 // make an evene listener for the search button
 searchBtn.addEventListener('click',()=>{
-    fetchJobs(searchBox.value)
+    pageCount=1
+    fetchJobs(searchBox.value,pageCount,clearPreviousData=true)
 })
+
+window.addEventListener('scroll',()=>{
+	const {scrollHeight,scrollTop,clientHeight} = document.documentElement;
+	if(scrollTop + clientHeight > scrollHeight - 5){
+		console.log('reached the end of the screen ')
+        console.log(pageCount)
+        fetchJobs(searchBox.value,pageCount);
+        pageCount=pageCount+1;
+
+	}
+});
+
    //http://143.244.157.225:9000/api/v1/jobs/?search=python 
-    const writeData=(data)=>{
-        resultBox.innerHTML = "";
+    const writeData=(data,clearPreviousData)=>{
+        clearPreviousData ?resultBox.innerHTML = "":null;
         data.results.forEach(result => {
+            console.log(result, 'from the write data');
             //resultBox.innerHTML += `<div>${result.company_name} ${result.created_at}</div>`
             resultBox.innerHTML += `<div class=" w-full flex flex-col bg-white px-8 py-6 max-w-sm mx-auto rounded-lg shadow-lg">
         <div class="flex justify-center items-center">
@@ -50,23 +66,23 @@ searchBtn.addEventListener('click',()=>{
                 
                 <a class="text-gray-700 text-sm " href="${result.link}" target="blank">${result.company_name}</a>
             </div>
-            <span class="font-light text-sm text-gray-600">${result.created_at}</span>
+            <span class="font-light text-sm text-gray-600">${result.create_at}</span>
         </div>
     </div>`
 
         })
     }
     
-    async function fetchJobs(searchQuery) {
+    async function fetchJobs(searchQuery,pageCount,clearPreviousData=false) {
         try {
-            const url = `/api/v1/jobs${searchQuery ? `?search=${searchQuery}` : ''}`;
+            const url = `/api/v1/jobs${searchQuery||pageCount ? `?search=${searchQuery}&page=${pageCount}` : ''}`;
             console.log(url)
             const res = await fetch(url,{headers: {'X-CSRFToken': csrftoken}})
             const data = await res.json();
             console.log(data);
             
            
-            writeData(data)
+            writeData(data,clearPreviousData)
         } catch (error) {
             console.log(error)
         }

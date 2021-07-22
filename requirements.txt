@@ -1,6 +1,6 @@
 aiohttp==3.7.4.post0
 aiosqlite==0.16.1
-amqp==2.6.1
+amqp
 appdirs==1.4.4
 arrow==1.1.1
 asgiref==3.3.4

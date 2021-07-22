@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-CELERY_BROKER_URL=os.environ.get("REDISCLOUD_URL")
+CELERY_BROKER_URL=os.environ.get("REDIS_URL")
 SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'uni_form'

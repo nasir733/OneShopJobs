@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'jobs_api',
-    'django_extensions',
     'django_filters',
     'website',
     'accounts',
@@ -76,7 +75,6 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -93,10 +91,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "scrapper.urls"
-GRAPH_MODELS = {
-    'all_applications': True,
-    'group_models': True,
-}
+
 
 TEMPLATES = [
     {
@@ -120,7 +115,6 @@ WSGI_APPLICATION = "scrapper.wsgi.application"
 
 
 # NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-NPM_BIN_PATH = 'npm'
 
 DATABASES = {
     "default": {
@@ -170,7 +164,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

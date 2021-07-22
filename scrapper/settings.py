@@ -29,7 +29,7 @@ config = dotenv_values(".env")
 SECRET_KEY = "django-insecure-o=8yqu$y4&3ffl0g)g!v1u)sae-*zl=d@#lz4^61t9o6dkt$#b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 BROKER_POOL_LIMIT = 3
@@ -125,10 +125,10 @@ NPM_BIN_PATH = 'npm'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": f'{ os.environ.get("NAME") if not DEBUG else config["NAME"]}',
-        "USER": f'{ os.environ.get("USER") if not DEBUG else  config["USER"]}',
-        "PASSWORD": f'{os.environ.get("PASSWORD") if not DEBUG else config["PASSWORD"]}',
-        "HOST": f'{os.environ.get("HOST")if not DEBUG else config["HOST"]}',
+        "NAME": f'{ os.environ.get("NAME") if  DEBUG else config["NAME"]}',
+        "USER": f'{ os.environ.get("USER") if  DEBUG else  config["USER"]}',
+        "PASSWORD": f'{os.environ.get("PASSWORD") if  DEBUG else config["PASSWORD"]}',
+        "HOST": f'{os.environ.get("HOST")if  DEBUG else config["HOST"]}',
         "PORT": "5432",
     }
 }

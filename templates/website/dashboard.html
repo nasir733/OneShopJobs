@@ -51,26 +51,31 @@ window.addEventListener('scroll',()=>{
    //http://143.244.157.225:9000/api/v1/jobs/?search=python 
     const writeData=(data,clearPreviousData)=>{
         clearPreviousData ?resultBox.innerHTML = "":null;
+        if (data.results) {
         data.results.forEach(result => {
             console.log(result, 'from the write data');
             //resultBox.innerHTML += `<div>${result.company_name} ${result.created_at}</div>`
             resultBox.innerHTML += `<div class=" w-full flex flex-col bg-white px-8 py-6 max-w-sm mx-auto rounded-lg shadow-lg">
         <div class="flex justify-center items-center">
-            <a class="px-2 py-1 bg-gray-600 text-sm text-green-100 rounded" href="${result.title}" target="blank">${result.jobcategory.name}</a>
+            <a class="px-2 py-1 bg-gray-600 text-sm text-green-100 rounded" href="${result.link}" target="_blank">${result.jobcategory.name}</a>
         </div>
         <div class="mt-4">
-            <a class="text-lg text-gray-700 font-medium" href="${result.link}">${result.title}</a>
+            <a class="text-lg text-gray-700 font-medium" href="${result.link}" target="_blank">${result.title}</a>
         </div>
         <div class="flex justify-between items-center mt-4">
             <div class="flex items-center">
                 
-                <a class="text-gray-700 text-sm " href="${result.link}" target="blank">${result.company_name}</a>
+                <a class="text-gray-700 text-sm " href="${result.link}"  target="_blank">${result.company_name}</a>
             </div>
             <span class="font-light text-sm text-gray-600">${result.create_at}</span>
         </div>
     </div>`
 
         })
+        }else{
+            resultBox.innerHTML += "<h1>No results found </h1>"
+        }
+    
     }
     
     async function fetchJobs(searchQuery,pageCount,clearPreviousData=false) {

@@ -119,10 +119,10 @@ WSGI_APPLICATION = "scrapper.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": f'{ os.environ.get("NAME") if not DEBUG else config["NAME"]}',
-        "USER": f'{ os.environ.get("USER") if not DEBUG else  config["USER"]}',
-        "PASSWORD": f'{os.environ.get("PASSWORD") if not DEBUG else config["PASSWORD"]}',
-        "HOST": f'{os.environ.get("HOST")if not DEBUG else config["HOST"]}',
+        "NAME": f'{ os.environ.get("NAME")}',
+        "USER": f'{ os.environ.get("USER")}',
+        "PASSWORD": f'{os.environ.get("PASSWORD")}',
+        "HOST": f'{os.environ.get("HOST")}',
         "PORT": "5432",
     }
 }

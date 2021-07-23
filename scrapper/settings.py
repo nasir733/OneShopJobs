@@ -29,7 +29,7 @@ config = dotenv_values(".env")
 SECRET_KEY = "django-insecure-o=8yqu$y4&3ffl0g)g!v1u)sae-*zl=d@#lz4^61t9o6dkt$#b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 BROKER_POOL_LIMIT = 3

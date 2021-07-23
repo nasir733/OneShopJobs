@@ -16,4 +16,5 @@ config = dotenv_values(".env")
 @shared_task()
 def stackoverflow_scrapper():
     res = requests.get(f'http://{os.environ.get("FASTAPIURL")}/scrape-stackoverflow',verify=False)
+    print('request the fastapi scrapper------------------------------')
     return res.text

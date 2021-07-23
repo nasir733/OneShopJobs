@@ -12,8 +12,8 @@ from django.conf import settings
 import os 
 config = dotenv_values(".env")
 
-
+# if not  settings.DEBUG else config["FASTAPIURL"]
 @shared_task()
 def stackoverflow_scrapper():
-    res = requests.get(f'http://{os.environ.get("FASTAPIURL") if not  settings.DEBUG else config["FASTAPIURL"]}/scrape-stackoverflow',verify=False)
+    res = requests.get(f'http://{os.environ.get("FASTAPIURL")}/scrape-stackoverflow',verify=False)
     return res.text
